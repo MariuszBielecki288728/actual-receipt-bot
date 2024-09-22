@@ -94,4 +94,4 @@ jobs:
           name: ${{ github.ref_name }}
           body: ${{ steps.changelog.outputs.changes }}
           token: ${{ secrets.GITHUB_TOKEN }}
-          artifacts: *.whl, *.tar.gz
+          artifacts: "*.whl, *.tar.gz"

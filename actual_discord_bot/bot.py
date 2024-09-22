@@ -1,32 +1,32 @@
-import logging
+import asyncio
 import os
 
 import discord
+from cogwatch import watch
 from discord.ext import commands
 
-intents = discord.Intents.default()
-intents.message_content = True
-bot = commands.Bot(command_prefix="!", intents=intents)
 
-logger = logging.getLogger(__name__)
+class ActualDiscordBot(commands.Bot):
+    def __init__(self) -> None:
+        intents = discord.Intents.default()
+        intents.message_content = True
+        super().__init__(command_prefix="!", intents=intents)
 
+    @watch(path="actual_discord_bot", preload=True)
+    async def on_ready(self) -> None:
+        print("Bot ready.")
 
-@bot.event
-async def on_ready() -> None:
-    logger.info("%s has connected to Discord!", bot.user)
+    async def on_message(self, message: discord.Message) -> None:
+        if message.author == self.user:
+            return
 
-
-@bot.event
-async def on_message(message: discord.Message) -> None:
-    if message.author == bot.user:
-        return
-
-    await message.channel.send(f"Echo: {message.content}")
+        await message.channel.send(f"Echo: {message.content}")
 
 
-def main() -> None:
-    bot.run(os.getenv("DISCORD_TOKEN"))
+async def main() -> None:
+    client = ActualDiscordBot()
+    await client.start(os.getenv("DISCORD_TOKEN"))
 
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())

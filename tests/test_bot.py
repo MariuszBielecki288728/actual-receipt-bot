@@ -2,11 +2,9 @@ from unittest.mock import AsyncMock, patch
 
 import pytest
 
-from actual_discord_bot.bot import bot
-
 
 @pytest.mark.asyncio
-async def test_on_message():
+async def test_on_message(bot):
     # Arrange
     mock_message = AsyncMock()
     mock_message.author = AsyncMock()
@@ -22,7 +20,7 @@ async def test_on_message():
 
 
 @pytest.mark.asyncio
-async def test_on_message_from_bot():
+async def test_on_message_from_bot(bot):
     # Arrange
     mock_message = AsyncMock()
     mock_message.author = bot.user

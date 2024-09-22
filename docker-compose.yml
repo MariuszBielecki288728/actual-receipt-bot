@@ -1,5 +1,8 @@
 services:
   bot:
     build: .
+    volumes:
+      - .:/app
     environment:
       - DISCORD_TOKEN=${DISCORD_TOKEN}
+    command: python -u actual_discord_bot/bot.py

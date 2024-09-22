@@ -48,8 +48,11 @@ classifiers = [
 [tool.poetry.dependencies]
 python = "^3.12"
 
-discord = "*"
-cogwatch = "*"
+discord = "^2.3.2"
+cogwatch = "^3.3.1"
+actualpy = "^0.5.1"
+environ-config = "^24.1.0"
+babel="^2.16.0"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -161,6 +164,7 @@ ignore = [
     "D212",    # Multi-line summary first line
     "ANN101",  # Self not typed
     "T201",    # Prints not allowed
+    "EM102",   # No f-string literals in exceptions
 ]
 
 

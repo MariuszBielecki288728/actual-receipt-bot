@@ -86,6 +86,7 @@ tox-gh-actions = "*"
 [tool.pytest.ini_options]
 minversion = "6.0"
 asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
 addopts = """
 --doctest-modules \
 --cov=./ \
@@ -165,6 +166,7 @@ ignore = [
     "ANN101",  # Self not typed
     "T201",    # Prints not allowed
     "EM102",   # No f-string literals in exceptions
+    "ANN102"   # `cls` type annotation
 ]
 
 

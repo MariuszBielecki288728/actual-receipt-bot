@@ -5,4 +5,14 @@ services:
       - .:/app
     environment:
       - DISCORD_TOKEN=${DISCORD_TOKEN}
+      - ACTUAL_PASSWORD=${ACTUAL_PASSWORD}
+
     command: python -u actual_discord_bot/bot.py
+
+  actual_server:
+    image: docker.io/actualbudget/actual-server:latest
+    ports:
+      - '6669:5006'
+    volumes:
+      - ./actual-data:/data
+    restart: unless-stopped

@@ -2,8 +2,8 @@ from actual import Actual
 from actual.database import Transactions
 from actual.queries import create_transaction
 
-from actual_discord_bot.bank_notifications.base_notification import BaseNotification
 from actual_discord_bot.config import ActualConfig
+from actual_discord_bot.dataclasses_definitions import ActualTransactionData
 
 
 class ActualConnector:
@@ -15,11 +15,10 @@ class ActualConnector:
             file=config.file,
         )
 
-    def add_transaction_from_bank_notification(
+    def save_transaction(
         self,
-        notification: BaseNotification,
+        transaction_data: ActualTransactionData,
     ) -> Transactions:
-        transaction_data = notification.to_transaction()
         with self.actual_manager as actual:
             return create_transaction(
                 actual.session,

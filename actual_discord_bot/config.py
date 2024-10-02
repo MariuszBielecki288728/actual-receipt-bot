@@ -12,3 +12,4 @@ class ActualConfig:
 @environ.config(prefix="DISCORD")
 class DiscordConfig:
     token: str = environ.var()
+    bank_notification_channel: str = environ.var()

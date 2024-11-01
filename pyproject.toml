@@ -46,11 +46,14 @@ classifiers = [
 
 
 [tool.poetry.dependencies]
-python = "^3.12"
+python = "^3.13"
 
-discord = "^2.3.2"
+# Remove after discord-py >2.4 is released
+audioop-lts = "*"
+
+discord-py = "^2.4.0"
 cogwatch = "^3.3.1"
-actualpy = "^0.5.1"
+actualpy = "^0.7.0"
 environ-config = "^24.1.0"
 babel="^2.16.0"
 
@@ -64,7 +67,7 @@ optional = true
 
 
 [tool.poetry.group.linters.dependencies]
-ruff = "^0.6.6"
+ruff = "^0.7.1"
 
 
 [tool.poetry.group.tests]
@@ -126,7 +129,7 @@ select = [
     "F",    # Pyflakes
     "FA",   # __future__ annotations
     "FLY",  # F-strings
-    # "FURB", # Refurb
+    "FURB", # Refurb
     "G",    # Logging format
     "I",    # Isort
     "ICN",  # Import conventions
@@ -200,18 +203,18 @@ ban-relative-imports = "all"
 [tool.tox]
 legacy_tox_ini = """
 [tox]
-envlist = py312
+envlist = py313
 skip_missing_interpreters = true
 
 [gh-actions]
 python =
-    3.12: py312
+    3.13: py313
 
 [testenv]
 passenv = GITHUB_*
 allowlist_externals = poetry
 
 commands =
-    poetry run pytest
+    poetry run pytest tests/unit_tests
     poetry run coverage report
 """

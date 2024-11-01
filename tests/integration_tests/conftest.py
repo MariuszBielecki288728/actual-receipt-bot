@@ -1,22 +1,20 @@
 import pytest
 from actual import Actual
-
-from actual_discord_bot.bot import ActualDiscordBot
-
-
-@pytest.fixture
-def bot():
-    return ActualDiscordBot()
+from actual.queries import create_account
 
 
 @pytest.fixture
 def actual():
     with Actual(
-        base_url="http://localhost:6669",
-        password="",
+        base_url="http://localhost:12012",
+        password="test",
         bootstrap=True,
     ) as actual:
         actual.create_budget("TestBudget")
         actual.upload_budget()
+        acc = create_account(actual.session, "TestAccount")
+        actual.commit()
         yield actual
+        acc.delete()
         actual.delete_budget()
+        actual.commit()
